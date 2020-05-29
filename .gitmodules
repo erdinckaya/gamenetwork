@@ -1,0 +1,3 @@
+[submodule "vendor/yojimbo_cmake"]
+	path = vendor/yojimbo_cmake
+	url = https://github.com/erdinckaya/yojimbo_cmake
