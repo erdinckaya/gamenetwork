@@ -42,7 +42,7 @@ make
 ```
 In windows
 ```
-git clone https://github.com/erdinckaya/gamenetwork
+git clone --recursive https://github.com/erdinckaya/gamenetwork
 cd gamenetwork
 mkdir build
 cd build
