@@ -2,9 +2,9 @@
 
 GameNetwork is a dedicated cross platform game networking project to help game developer or simulation developers.
 Currently GameNetwork is tested in 64bits machines, in order to execute this project in 32bit you have rebuild bunch of libraries.
-GameNetwork uses yojimbo for establishing connections in UDP and RUDP, also yojimbo has
+GameNetwork uses yojimbo for establishing connections in `UDP` and `RUDP`, also yojimbo has
 very fast message serialization and deserialization mechanics which brings more performance as well. One of the powerful features of
-GameNetwork project you can write your client and server code in same project, by using SERVER and CLIENT macroes to distinguish them.
+GameNetwork project you can write your client and server code in same project, by using `SERVER` and `CLIENT` macroes to distinguish them.
 Since GameNetwork handles most of the tricky parts of game networking you only need to deal with your game play code. You dont have to
 take care about sending or acknowledging messages via UDP. There are some example codes which you can find under the `sandbox` folder.
 This project has been tested successfully in `Macos Majove`, `Ubuntu 18.04` and `Windows 10`.
@@ -42,7 +42,7 @@ make
 ```
 In windows
 ```
-git clone https://github.com/erdinckaya/gamenetwork
+git clone --recursive https://github.com/erdinckaya/gamenetwork
 cd gamenetwork
 mkdir build
 cd build
