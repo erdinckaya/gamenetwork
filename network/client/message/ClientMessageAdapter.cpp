@@ -6,7 +6,7 @@ ClientMessageAdapter::ClientMessageAdapter(Client &t_client, const INetworkBase 
 
 // This is used by only internally. It creates a wrapper for message class.
 // In order to keep track of the life time of the messages.
-ClientMessageAdapter::MessagePtr ClientMessageAdapter::CreateMessage(Message *t_message) {
+ClientMessageAdapter::MessagePtr ClientMessageAdapter::ReceiveMessage(GameChannel t_channel) {
   // Check state to send message.
   if (!m_network.CanSendMessage()) {
     std::cout << "[ClientMessageAdapter] Client cannot send message! [CreateMessage]" << std::endl;
@@ -15,7 +15,8 @@ ClientMessageAdapter::MessagePtr ClientMessageAdapter::CreateMessage(Message *t_
   // Lock the critical section.
   Guard guard(m_clientMutex);
   // Create wrapper.
-  MessagePtr message(t_message, [this](Message *t_deletedMessage) {
+  auto messagePtr = m_client.ReceiveMessage(static_cast<int>(t_channel));
+  MessagePtr message(messagePtr, [this](Message *t_deletedMessage) {
     Guard guard(m_messagesMutex);
     m_messages.push_back(t_deletedMessage);
   });

@@ -90,10 +90,10 @@ void ServerBase::ProcessMessages() {
   for (int i = 0; i < m_maxPlayer; i++) {
     if (m_server.IsClientConnected(i)) {
       for (int j = 0; j < m_numOfChannels; j++) {
-        yojimbo::Message *message = m_server.ReceiveMessage(i, j);
+        auto message = m_messageAdapter.ReceiveMessage(i, static_cast<GameChannel>(j));
         while (message != nullptr) {
-          m_callback.OnMessageReceived(j, i, m_messageAdapter.CreateMessage(i, message));
-          message = m_server.ReceiveMessage(i, j);
+          m_callback.OnMessageReceived(j, i, std::move(message));
+          message = m_messageAdapter.ReceiveMessage(i, static_cast<GameChannel>(j));
         }
       }
     }

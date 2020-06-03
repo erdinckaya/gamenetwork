@@ -19,7 +19,7 @@ struct ServerMessageAdapter {
   using MessageInitFunc = const std::function<void(Message *)>;
 
   explicit ServerMessageAdapter(Server &t_server, const INetworkBase& t_network);
-  MessagePtr CreateMessage(int t_clientIndex, Message *t_message);
+  MessagePtr ReceiveMessage(int t_clientIndex, GameChannel t_channel);
   void SendMessage(int t_clientIndex, GameMessageType t_type, GameChannel t_channel, MessageInitFunc &t_callback);
 
   void ReleaseMessages();

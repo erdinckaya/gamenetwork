@@ -5,12 +5,13 @@ ServerMessageAdapter::ServerMessageAdapter(Server &t_server, const INetworkBase 
 
 // This function is used only internally. In order to keep track of the life time of the messages,
 // it creates a wrapper class for messages.
-ServerMessageAdapter::MessagePtr ServerMessageAdapter::CreateMessage(int t_clientIndex, Message *t_message) {
+ServerMessageAdapter::MessagePtr ServerMessageAdapter::ReceiveMessage(int t_clientIndex, GameChannel t_channel) {
   if (!m_network.CanSendMessage()) {
     return nullptr;
   }
   Guard guard(m_serverMutex);
-  MessagePtr message(t_message, [this, t_clientIndex](Message *t_deletedMessage) {
+  auto messagePtr = m_server.ReceiveMessage(t_clientIndex, static_cast<int>(t_channel));
+  MessagePtr message(messagePtr, [this, t_clientIndex](Message *t_deletedMessage) {
     Guard guard(m_messagesMutex);
     m_messages.emplace_back(t_clientIndex, t_deletedMessage);
   });

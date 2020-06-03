@@ -108,11 +108,11 @@ bool ClientBase::Update(const double t_deltaTime) {
 void ClientBase::ProcessMessages() {
   if (m_client.IsConnected()) {
     for (int i = 0; i < m_numOfChannels; i++) {
-      yojimbo::Message *message = m_client.ReceiveMessage(i);
+      auto message = m_messageAdapter.ReceiveMessage(static_cast<GameChannel>(i));
 
       while (message != nullptr) {
-        m_callback.OnMessageReceived(i, m_messageAdapter.CreateMessage(message));
-        message = m_client.ReceiveMessage(i);
+        m_callback.OnMessageReceived(i, std::move(message));
+        message = m_messageAdapter.ReceiveMessage(static_cast<GameChannel>(i));
       }
     }
   }

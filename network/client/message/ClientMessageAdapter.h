@@ -20,7 +20,7 @@ struct ClientMessageAdapter {
 
   explicit ClientMessageAdapter(Client &t_client, const INetworkBase& t_network);
 
-  MessagePtr CreateMessage(Message *t_message);
+  MessagePtr ReceiveMessage(GameChannel t_channel);
 
   void SendMessage(GameMessageType t_messageType, GameChannel t_channel, MessageInitFunc &t_callback);
 
